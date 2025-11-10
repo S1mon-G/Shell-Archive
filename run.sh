@@ -23,3 +23,11 @@ curl -s -D "$headerfile" "$url" -o "$jsonfile"
 echo "${GREEN}done${NC}"
 
 done < "urls.txt"
+
+downloads="./downloads"
+[ -d "$downloads" ] && rm -rf "$downloads"
+mkdir -p "$downloads"
+
+cp ./temp/*.json ./downloads
+
+echo "Copying JSON files from '$(basename "$temp")'to '$(basename "$downloads")'"
