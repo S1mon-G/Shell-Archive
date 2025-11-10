@@ -6,9 +6,9 @@ TEMP_DIR='./temp'
 DOWNLOAD_DIR='./downloads'
 
 now=$(date +"%Y-%m-%dT%H:%M:%S.%3N%z")
-echo "Bash script starting at: $now" 
+echo "> Bash script starting at: $now" 
 
-echo "Script full path: '$(realpath run.sh)'"
+echo "> Script full path: '$(realpath run.sh)'"
 
 [ -d "$TEMP_DIR" ] && rm -rf "$TEMP_DIR"
 mkdir -p "$TEMP_DIR"
@@ -34,3 +34,17 @@ echo "> Copying JSON files from '$(basename "$TEMP_DIR")'to '$(basename "$DOWNLO
 cp "$TEMP_DIR"/*.json "$DOWNLOAD_DIR"
 
 echo "$DONE_MSG"
+
+echo "> Compiling HTTP response headers from '$(basename "$TEMP_DIR")'to '$(basename "$DOWNLOAD_DIR")'"
+
+OUTPUT="headers.txt"
+
+for file in "$TEMP_DIR"/*.json.headers; do
+while IFS= read -r line; do
+echo "$line" >> "$OUTPUT"
+
+done < "$file"
+
+echo -e "\n" >> "$OUTPUT"
+
+done
