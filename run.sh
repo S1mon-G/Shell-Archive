@@ -1,35 +1,36 @@
 BLUE='\033[0;34;4m'
 GREEN='\033[0;32m'
 NC='\033[0m'
+DONE_MSG="${GREEN}done${NC}"
+TEMP_DIR='./temp'
+DOWNLOAD_DIR='./downloads'
 
 now=$(date +"%Y-%m-%dT%H:%M:%S.%3N%z")
 echo "Bash script starting at: $now" 
 
 echo "Script full path: '$(realpath run.sh)'"
 
-temp="./temp"
-[ -d "$temp" ] && rm -rf "$temp"
-mkdir -p "$temp"
+[ -d "$TEMP_DIR" ] && rm -rf "$TEMP_DIR"
+mkdir -p "$TEMP_DIR"
 
 while IFS= read -r url; do
 filename=$(basename "$url")
-jsonfile="$temp/$filename"
-headerfile="$temp/$filename.headers"
+jsonfile="$TEMP_DIR/$filename"
+headerfile="$TEMP_DIR/$filename.headers"
 
 echo "> Downloading${BLUE}$url${NC}"
 
 curl -s -D "$headerfile" "$url" -o "$jsonfile"
 
-echo "${GREEN}done${NC}"
+echo "$DONE_MSG"
 
 done < "urls.txt"
 
-downloads="./downloads"
-[ -d "$downloads" ] && rm -rf "$downloads"
-mkdir -p "$downloads"
+[ -d "$DOWNLOAD_DIR" ] && rm -rf "$DOWNLOAD_DIR"
+mkdir -p "$DOWNLOAD_DIR"
 
-echo "> Copying JSON files from '$(basename "$temp")'to '$(basename "$downloads")'"
+echo "> Copying JSON files from '$(basename "$TEMP_DIR")'to '$(basename "$DOWNLOAD_DIR")'"
 
-cp ./temp/*.json ./downloads
+cp "$TEMP_DIR"/*.json "$DOWNLOAD_DIR"
 
-echo "${GREEN}done${NC}"
+echo "$DONE_MSG"
