@@ -16,7 +16,7 @@ filename=$(basename "$url")
 jsonfile="$temp/$filename"
 headerfile="$temp/$filename.headers"
 
-echo "Downloading${BLUE}$url${NC}"
+echo "> Downloading${BLUE}$url${NC}"
 
 curl -s -D "$headerfile" "$url" -o "$jsonfile"
 
@@ -28,6 +28,8 @@ downloads="./downloads"
 [ -d "$downloads" ] && rm -rf "$downloads"
 mkdir -p "$downloads"
 
+echo "> Copying JSON files from '$(basename "$temp")'to '$(basename "$downloads")'"
+
 cp ./temp/*.json ./downloads
 
-echo "Copying JSON files from '$(basename "$temp")'to '$(basename "$downloads")'"
+echo "${GREEN}done${NC}"
