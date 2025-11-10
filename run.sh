@@ -1,8 +1,25 @@
+BLUE='\033[0;34;4m'
+GREEN='\033[0;32m'
+NC='\033[0m'
+
 now=$(date +"%Y-%m-%dT%H:%M:%S.%3N%z")
 echo "Bash script starting at: $now" 
 
 echo "Script full path: '$(realpath run.sh)'"
 
-temp_dir="temp_dir.temp"
-[ -d "$temp_dir" ] && rm -rf "$temp_dir"
-mkdir -p "$temp_dir"
+temp="./temp"
+[ -d "$temp" ] && rm -rf "$temp"
+mkdir -p "$temp"
+
+while IFS= read -r url; do
+filename=$(basename "$url")
+jsonfile="$temp/$filename"
+headerfile="$temp/$filename.headers"
+
+echo "Downloading${BLUE}$url${NC}"
+
+curl -s -D "$headerfile" "$url" -o "$jsonfile"
+
+echo "${GREEN}done${NC}"
+
+done < "urls.txt"
