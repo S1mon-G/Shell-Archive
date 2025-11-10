@@ -1,19 +1,19 @@
-#Archiving
-##Brief CDA - Shell Script - 10/11/26
+# Archiving
+## Brief CDA - Shell Script - 10/11/26
 
-###Console###
+### Console
 
 The console is the physical device used for communication between the user and the system.
 
-###Terminal###
+###Terminal
 
 The terminal is the interface used to interact with the console.
 
-###Shell###
+###Shell
 
 A shell is a program that interpret and processes the commands given by the user.
 
-###Command and arguments###
+###Command and arguments
 
 A command is an instruction given via an interface.
 A command can support arguments to specify or modify its default behavior.
