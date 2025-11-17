@@ -35,16 +35,20 @@ cp "$TEMP_DIR"/*.json "$DOWNLOAD_DIR"
 
 echo "$DONE_MSG"
 
-echo "> Compiling HTTP response headers from '$(basename "$TEMP_DIR")'to '$(basename "$DOWNLOAD_DIR")'"
+echo "> Compiling HTTP response headers from '$(basename "$TEMP_DIR")' to '$(basename "$DOWNLOAD_DIR")'"
 
 OUTPUT="headers.txt"
 
 for file in "$TEMP_DIR"/*.json.headers; do
+echo "### $(basename "$file")" >> "$OUTPUT"
+
 while IFS= read -r line; do
 echo "$line" >> "$OUTPUT"
 
 done < "$file"
 
-echo -e "\n" >> "$OUTPUT"
-
+echo "\n" >> "$OUTPUT"
 done
+
+echo "$DONE_MSG"
+
